@@ -1,4 +1,4 @@
-name: schedule workflow
+name: concurancy workflow
 
 on: 
     workflow_dispatch:  # Allows manual triggering of the workflow
