@@ -13,4 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: welcome message
-        run: echo "Welcome to the schedule workflow on schedule event!"
+        run: | 
+            echo "Welcome to the schedule workflow on schedule event!"
+            sleep 15s
