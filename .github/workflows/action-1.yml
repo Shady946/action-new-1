@@ -1,42 +1,38 @@
-name: first workflow
-on:
-  push:
-    branches:
-      - main
-jobs:
-  job1:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v4.2.2
-      - name: welcome message
-        run: echo "Welcome to the first workflow on push event!"
-
-      - name: install cowsay
-        run: sudo apt-get install -y cowsay
-
-      - name: display message with cowsay
-        run: |
-          echo "Welcome to the first workflow on push event!" | cowsay > shady.txt
-
-      - name: artifact upload
-        uses: actions/upload-artifact@v4.6.2
+# Define the workflow name.
+name: first workflow                # Workflow is named "first workflow"
+on:                                # Defines event triggers for the workflow
+  push:                          # Triggers on push events...
+    branches:                    # ...specifically on these branches:
+      - main                    # The workflow runs when changes are pushed to the main branch
+jobs:                            # Jobs are groups of sequential steps to run in the workflow
+  job1:                        # Start of job1
+    runs-on: ubuntu-latest       # job1 runs on the latest Ubuntu environment
+    steps:                     # List of steps for job1
+      - name: checkout code    # Step: Check out repository content
+        uses: actions/checkout@v4.2.2  # Uses the official checkout action at version v4.2.2
+      - name: welcome message  # Step: Print a welcome message
+        run: echo "Welcome to the first workflow on push event!"  # Echoes a welcome message to the console
+      - name: install cowsay   # Step: Install the "cowsay" package
+        run: sudo apt-get install -y cowsay  # Installs cowsay using apt-get with automatic confirmation
+      - name: display message with cowsay  # Step: Use cowsay to decorate the message
+        run: |                   # Starts a multi-line shell command
+          echo "Welcome to the first workflow on push event!" | cowsay > shady.txt  # Pipes the welcome message to cowsay and writes the output to shady.txt
+      - name: artifact upload  # Step: Upload shady.txt as an artifact for later use
+        uses: actions/upload-artifact@v4.6.2  # Uses the upload artifact action at version v4.6.2
         with:
-          name: shady-artifact
-          path: shady.txt
+          name: shady-artifact   # Names the created artifact "shady-artifact"
+          path: shady.txt       # Specifies the file (shady.txt) to be uploaded
 
-  job2:
-    runs-on: ubuntu-latest
-    needs: job1
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v4.2.2
-
-      - name: download artifact
-        uses: actions/download-artifact@v4.3.0
+  job2:                        # Start of job2, runs after job1
+    runs-on: ubuntu-latest       # job2 also runs on the latest Ubuntu environment
+    needs: job1                # Indicates that job2 depends on successful completion of job1
+    steps:                     # List of steps for job2
+      - name: checkout code    # Step: Check out the code again for job2
+        uses: actions/checkout@v4.2.2  # Reuses the checkout action to get repository content
+      - name: download artifact  # Step: Download the artifact from job1
+        uses: actions/download-artifact@v4.3.0  # Uses the download artifact action at version v4.3.0
         with:
-          name: shady-artifact
-          path: .
+          name: shady-artifact   # Specifies the artifact to download (must match the uploaded name)
 
-      - name: test file shady.txt
-        run: grep -i "welcome" shady.txt || echo "No welcome message found in shady.txt"
+      - name: test file shady.txt  # Step: Verify that shady.txt contains the expected message
+        run: grep -i "welcome" shady.txt || echo "No welcome message found in shady.txt"  # Searches for "welcome" (case-insensitive) in shady.txt; if not found, prints a warning message
