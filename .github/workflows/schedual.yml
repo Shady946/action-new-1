@@ -1,0 +1,12 @@
+name: schedule workflow
+
+on: 
+  schedule:
+    - cron: '*/1 * * * *'  # كل دقيقة
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: welcome message
+        run: echo "Welcome to the schedule workflow on schedule event!"
