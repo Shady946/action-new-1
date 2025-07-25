@@ -25,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.2
         with:
           name: shady-artifact
-          paths: shady.txt
+          path: shady.txt
 
   job2:
     runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
         uses: actions/download-artifact@v4.3.0
         with:
           name: shady-artifact
-          paths: shady.txt
+          path: shady.txt
 
       - name: list files
         run: ls -la
