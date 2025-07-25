@@ -1,8 +1,9 @@
 name: schedule workflow
 
 on: 
-  schedule:
-    - cron: '*/1 * * * *'  # كل دقيقة
+    workflow_dispatch:  # Allows manual triggering of the workflow
+#   schedule:
+#     - cron: '*/1 * * * *'  # كل دقيقة
 
 jobs:
   job1:
