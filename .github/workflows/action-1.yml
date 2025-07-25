@@ -20,4 +20,11 @@ jobs:
         
       - name: cat README
         run: cat README.md
-      
+      - name: install cowsay
+        run: sudo apt-get install -y cowsay
+      - name: display message with cowsay
+        run: |
+          echo "Welcome to the first workflow on push event!" | cowsay
+      - name: display message with figlet
+        run: |
+          echo "Welcome to the first workflow on push event!" | figlet    
