@@ -7,6 +7,8 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout code
+        uses: actions/checkout@v4.2.2
       - name: welcome message
         run: echo "Welcome to the first workflow on push event!"
 
@@ -18,3 +20,4 @@ jobs:
         
       - name: cat README
         run: cat README.md
+      
