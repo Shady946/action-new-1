@@ -15,16 +15,23 @@ jobs:
       - name: list files
         run: ls -la
 
-      - name: display current directory
-        run: pwd  
-        
-      - name: cat README
-        run: cat README.md
       - name: install cowsay
         run: sudo apt-get install -y cowsay
+
       - name: display message with cowsay
         run: |
-          echo "Welcome to the first workflow on push event!" | cowsay
-      - name: display message with figlet
-        run: |
-          echo "Welcome to the first workflow on push event!" | figlet    
+          echo "Welcome to the first workflow on push event!" | cowsay > shady.txt
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4.2.2
+      - name: welcome message
+        run: echo "Welcome to the second job"
+
+      - name: list files
+        run: ls -la
+      - name: test file shady.txt
+        run: grep -i "welcome" shady.txt || echo "No welcome message found in shady.txt"
