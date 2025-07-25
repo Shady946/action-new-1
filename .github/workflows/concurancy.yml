@@ -1,0 +1,16 @@
+name: schedule workflow
+
+on: 
+    workflow_dispatch:  # Allows manual triggering of the workflow
+#   schedule:
+#     - cron: '*/1 * * * *'  # كل دقيقة
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: welcome message
+        run: echo "Welcome to the schedule workflow on schedule event!"
