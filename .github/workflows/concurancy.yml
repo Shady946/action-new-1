@@ -6,7 +6,7 @@ on:
 #     - cron: '*/1 * * * *'  # كل دقيقة
 concurrency:
   group: ${{ github.workflow }}
-  cancel-in-progress: true
+  cancel-in-progress: false  # Do not cancel in-progress jobs when a new run is triggered
 
 jobs:
   job1:
