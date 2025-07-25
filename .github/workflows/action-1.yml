@@ -22,7 +22,7 @@ jobs:
         run: |
           echo "Welcome to the first workflow on push event!" | cowsay > shady.txt
       - name: artifact upload
-        uses: actions/upload-artifact@v4.2.2
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: shady-artifact
 
@@ -35,7 +35,7 @@ jobs:
       - name: welcome message
         run: echo "Welcome to the second job"
       - name: download artifact
-        uses: actions/download-artifact@v4.2.2
+        uses: actions/download-artifact@v4.3.0
         with:
           name: shady-artifact
 
