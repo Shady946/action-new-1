@@ -1,0 +1,19 @@
+name: Conditional Workflow
+
+on:
+  push:
+
+jobs:
+  conditional-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: This step always runs
+        run: echo "This runs no matter what"
+
+      - name: Only runs if branch is main
+        if: github.ref == 'refs/heads/main'
+        run: echo "You pushed to the main branch!"
+
+      - name: Only runs if user is Shady946
+        if: github.actor == 'Shady946'
+        run: echo "Hello Shady!"

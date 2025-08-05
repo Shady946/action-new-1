@@ -1,0 +1,35 @@
+name: Workflow Filters and Activities
+
+on:
+  workflow_dispatch:  # تشغيل يدوي من GitHub UI
+
+  schedule:
+    - cron: "*/2 * * * *"  # تشغيل كل دقيقتين (صححنا الكرون)
+
+  push:
+    branches:
+      - main                # فقط عند الدفع لفرع main
+      - '!feature/**'       # تجاهل كل الفروع اللي تبدأ بـ feature/
+    # branches-ignore:
+    #   - feature/add-music
+    #   - feature/update/images
+    #   - test/**
+    #   - test/ui/index
+    #   - test/checkout/payment/
+
+  pull_request:
+    types:
+      - opened              # عند فتح pull request
+      - closed              # عند غلقه
+    paths-ignore:
+      - README.md           # تجاهل التعديلات على README.md
+    branches:
+      - main                # لما يكون الـ PR موجه لفرع main
+
+jobs:
+  Hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello
+        run: echo "👋 Hello from GitHub Actions based on triggers!"
+        
